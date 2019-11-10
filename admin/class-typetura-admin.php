@@ -144,7 +144,21 @@ class Typetura_Admin {
 	*/
 
 	public function display_plugin_setup_page() {
-		include_once( 'partials/typetura-public-display.php' );
+		include_once( 'partials/typetura-admin-display.php' );
 	}
+
+	public function options_update() {
+    register_setting($this->plugin_name, $this->plugin_name, array($this, 'validate'));
+ 	}
+
+	public function validate($input) {
+    // All inputs
+    $valid = array();
+
+    $valid['typetura_package'] = $input['typetura_package'];
+    $valid['typetura_api_key'] = $input['typetura_api_key'];
+
+    return $valid;
+ 	}
 
 }
