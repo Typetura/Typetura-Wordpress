@@ -13,11 +13,11 @@
  * @package           Typetura
  *
  * @wordpress-plugin
- * Plugin Name:       typetura
+ * Plugin Name:       Typetura
  * Plugin URI:        typetura.com/plugin
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       We typeset your website! Typography that works on your website regardless of layout or device.
  * Version:           1.0.0
- * Author:            Salvador Hernandez
+ * Author:            Typetura
  * Author URI:        https://typetura.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
