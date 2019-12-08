@@ -26,7 +26,7 @@
 
 		$options = get_option($this->plugin_name);
 
-		// Typetura Swttings
+		// Typetura Settings
 		$typetura_package = $options['typetura_package'];
 		$typetura_api_key = $options['typetura_api_key'];
 	?>
@@ -39,7 +39,7 @@
 
 	<fieldset>
 		<legend class="screen-reader-text"><span><?php _e('Select Typetura Package', $this->plugin_name);?></span></legend>
-		<div><?php esc_attr_e('Select Typetura Package', $this->plugin_name);?></div>
+		<div><?php _e('Select Typetura Package', $this->plugin_name);?></div>
 
 		<label for="<?php echo $this->plugin_name;?>-typetura_package">
 			<select
@@ -64,7 +64,7 @@
 
 	<fieldset>
 		<div>
-			<?php esc_attr_e('Typetura API Key', $this->plugin_name);?>
+			<?php _e('Typetura API Key', $this->plugin_name);?>
 		</div>
 		<legend class="screen-reader-text">
 			<span>
@@ -80,7 +80,7 @@
 		/>
 	</fieldset>
 
-	<?php submit_button('Save all changes', 'primary','submit', TRUE); ?>
+	<?php submit_button(__('Save all changes', $this->plugin_name), 'primary','submit', TRUE); ?>
 
   </form>
 

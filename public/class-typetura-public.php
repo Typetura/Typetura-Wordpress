@@ -51,6 +51,7 @@ class Typetura_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->typetura_options = get_option($this->plugin_name);
 
 	}
 
@@ -100,4 +101,23 @@ class Typetura_Public {
 
 	}
 
+	// Load Typetura Package
+	public function typetura_cdn_package(){
+	 	$typetura_package = $this->typetura_options['typetura_package'];
+		$typetura_api_key = $this->typetura_options['typetura_api_key'];
+
+		if(!empty($typetura_package) && !empty($typetura_api_key)){
+			$js_link = "https://cdn.typetura.com/typetura.js?apiKey=$typetura_api_key";
+			$css_link = "https://cdn.typetura.com/$typetura_package/typetura.css?apiKey=$typetura_api_key";
+
+			$try_url = @fopen($js_link,'r');
+
+			if( $try_url !== false ) {
+				?>
+						<script src=<?php echo $js_link ?>></script>
+						<link src=<?php echo $css_link ?>></link>
+				<?php
+			}
+		}
+	}
 }

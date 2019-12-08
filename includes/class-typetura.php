@@ -180,9 +180,14 @@ class Typetura {
 
 		$plugin_public = new Typetura_Public( $this->get_plugin_name(), $this->get_version() );
 
+		/*
+		 * The following actions are commented out as we won't need any added style or script to our theme
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		*/
 
+		// $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'typetura_cdn_package', PHP_INT_MAX);
+		$this->loader->add_action('wp_head', $plugin_public, 'typetura_cdn_package', PHP_INT_MAX);
 	}
 
 	/**
