@@ -107,15 +107,15 @@ class Typetura_Public {
 		$typetura_api_key = $this->typetura_options['typetura_api_key'];
 
 		if(!empty($typetura_package) && !empty($typetura_api_key)){
-			$js_link = "https://cdn.typetura.com/typetura.js?apiKey=$typetura_api_key";
-			$css_link = "https://cdn.typetura.com/$typetura_package/typetura.css?apiKey=$typetura_api_key";
+			$js_link = "https://cdn-staging.typetura.com/typetura.js?apiKey=$typetura_api_key";
+			$css_link = "https://cdn-staging.typetura.com/$typetura_package/typetura-hs.css?apiKey=$typetura_api_key";
 
 			$try_url = @fopen($js_link,'r');
 
 			if( $try_url !== false ) {
 				?>
 						<script src=<?php echo $js_link ?>></script>
-						<link src=<?php echo $css_link ?>></link>
+						<link rel="stylesheet" type="text/css" href=<?php echo $css_link ?>></link>
 				<?php
 			}
 		}
