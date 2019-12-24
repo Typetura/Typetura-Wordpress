@@ -115,7 +115,7 @@ class Typetura_Public {
 			// if( $try_url !== false ) {
 				?>
 						<script src=<?php echo $js_link ?>></script>
-						<link src=<?php echo $css_link ?>></link>
+						<link rel="stylesheet" type="text/css" href=<?php echo $css_link ?>></link>
 				<?php
 			}
 		// }
