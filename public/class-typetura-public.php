@@ -105,19 +105,33 @@ class Typetura_Public {
 	public function typetura_cdn_package(){
 	 	$typetura_package = $this->typetura_options['typetura_package'];
 		$typetura_api_key = $this->typetura_options['typetura_api_key'];
+		$typetura_base_size = $this->typetura_options['typetura_base_size'];
+		$typetura_auto_typesetting = $this->typetura_options['typetura_auto_typesetting'];
 
 		if(!empty($typetura_package) && !empty($typetura_api_key)){
 			$js_link = "https://cdn-staging.typetura.com/typetura.js?apiKey=$typetura_api_key";
-			$css_link = "https://cdn-staging.typetura.com/$typetura_package/typetura-hs.css?apiKey=$typetura_api_key";
+			$css_link = "https://cdn-staging.typetura.com/$typetura_package/typetura.css?apiKey=$typetura_api_key";
+			$css_hs_link = "https://cdn-staging.typetura.com/$typetura_package/typetura-hs.css?apiKey=$typetura_api_key";
 
-			// $try_url = @fopen($js_link,'r');
+			$custom_js_link = plugin_dir_url( __FILE__ ) . 'js/typetura-public.js';
 
-			// if( $try_url !== false ) {
-				?>
-						<script src=<?php echo $js_link ?>></script>
+			?>
+			
+					<script src=<?php echo $js_link ?>></script>
+
+					<?php if( $typetura_auto_typesetting ) {?>
+						<link rel="stylesheet" type="text/css" href=<?php echo $css_hs_link ?>></link>
+						<script src=<?php echo $custom_js_link ?>></script>
+					<?php } else { ?>
 						<link rel="stylesheet" type="text/css" href=<?php echo $css_link ?>></link>
-				<?php
-			}
-		// }
+					<?php } if( $typetura_base_size ) { ?>
+						<style type="text/css">
+							:root {
+								--tt-base: <?php echo $typetura_base_size ?>;
+							}
+						</style>
+					<?php } ?>
+			<?php
+		}
 	}
 }

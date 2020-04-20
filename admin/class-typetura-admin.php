@@ -157,6 +157,8 @@ class Typetura_Admin {
 
     $valid['typetura_package'] = $input['typetura_package'];
     $valid['typetura_api_key'] = $input['typetura_api_key'];
+    $valid['typetura_base_size'] = $input['typetura_base_size'];
+    $valid['typetura_auto_typesetting'] = $input['typetura_auto_typesetting'] == "on" ? true : false;
 
     return $valid;
  	}
