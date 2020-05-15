@@ -23,14 +23,21 @@
 
 	<?php
 		// Grab all options
-
 		$options = get_option($this->plugin_name);
-
+		
 		// Typetura Settings
 		$typetura_package = $options['typetura_package'];
 		$typetura_api_key = $options['typetura_api_key'];
 		$typetura_base_size = $options['typetura_base_size'];
 		$typetura_auto_typesetting = $options['typetura_auto_typesetting'];
+
+		$postdata = http_build_query(
+			array(
+			)
+		);
+		
+		$response = file_get_contents ( 'https://cdn.typetura.com/get-packages' );
+		$packages = json_decode($response, true)['packages'];
 	?>
 
 
@@ -77,22 +84,26 @@
 					id="<?php echo $this->plugin_name;?>-typetura_package"
 					name="<?php echo $this->plugin_name;?>[typetura_package]"
 				>
-					<?php $selected = ($typetura_package === 'nova') ? 'selected' : '' ; ?>
-					<option value="nova" <?php echo $selected; ?>>Nova</option>
-					<?php $selected = ($typetura_package === 'bullseye') ? 'selected' : '' ; ?>
-					<option value="bullseye" <?php echo $selected; ?>>Bullseye</option>
-					<?php $selected = ($typetura_package === 'magazine-moderne') ? 'selected' : '' ; ?>
-					<option value="magazine-moderne" <?php echo $selected; ?>>Magazine Moderne</option>
-					<?php $selected = ($typetura_package === 'rustic') ? 'selected' : '' ; ?>
-					<option value="rustic" <?php echo $selected; ?>>Rustic</option>
-					<?php $selected = ($typetura_package === 'squared-off') ? 'selected' : '' ; ?>
-					<option value="squared-off" <?php echo $selected; ?>>Squared Off</option>
-					<?php $selected = ($typetura_package === 'zine') ? 'selected' : '' ; ?>
-					<option value="zine" <?php echo $selected; ?>>Zine</option>
+					<?php foreach ($packages as $key => $package) { ?>
+						<?php $selected = ($typetura_package === $package['name']) ? 'selected' : '' ; ?>
+						<option 
+							value=<?php echo $package['name'] ?> 
+							<?php echo $selected; ?>
+						>
+							<?php echo $package['title'] ?>
+						</option>
+					<?php } ?>
 				</select>
-				<img id="package-preview" src="https://s3.amazonaws.com/typetura.com/production/<?php echo $typetura_package ?>/preview.png" alt=" " class="package_image"
-				style="display: block; background: #ddd; border-radius: 6px; width: 320px; height: 160px; margin: 1rem 0; box-shadow: 0 3px 8px #aaa">
-				<p class="description"><?php _e('You can <a href="https://typetura.com/typography-packages">browse the packages at Typetura.com.</a>', $this->plugin_name);?></p>
+				<img 
+					id="package-preview" 
+					src="https://s3.amazonaws.com/typetura.com/production/<?php echo $typetura_package ?>/preview.png" 
+					alt="Package Preview" 
+					class="package_image"
+					style="display: block; background: #ddd; border-radius: 6px; width: 320px; height: 160px; margin: 1rem 0; box-shadow: 0 3px 8px #aaa"
+				>
+				<p class="description">
+					<?php _e('You can <a href="https://typetura.com/typography-packages">browse the packages at Typetura.com.</a>', $this->plugin_name);?>
+				</p>
 			</td>
 		</tr>
 		<tr>
