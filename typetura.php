@@ -14,7 +14,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Typetura
- * Plugin URI:        typetura.com/plugin
+ * Plugin URI:        typetura.com/
  * Description:       We typeset your website! Typography that works on your website regardless of layout or device.
  * Version:           1.0.0
  * Author:            Typetura
