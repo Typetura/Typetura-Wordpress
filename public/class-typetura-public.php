@@ -120,10 +120,10 @@ class Typetura_Public {
 					<script src=<?php echo $js_link ?>></script>
 
 					<?php if( $typetura_auto_typesetting ) {?>
+						<link rel="stylesheet" type="text/css" href=<?php echo $css_link ?>></link>
+					<?php } else { ?>
 						<link rel="stylesheet" type="text/css" href=<?php echo $css_hs_link ?>></link>
 						<script src=<?php echo $custom_js_link ?>></script>
-					<?php } else { ?>
-						<link rel="stylesheet" type="text/css" href=<?php echo $css_link ?>></link>
 					<?php } if( $typetura_base_size ) { ?>
 						<style type="text/css">
 							:root {

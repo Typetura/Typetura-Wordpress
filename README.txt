@@ -6,41 +6,28 @@ Tested up to: 3.4
 Stable tag: 4.3
 License: GPL-2.0+
 
-Typetura is a fluid typesetting technology that completely eliminates the need for breakpoints. It enables paragraphs, headlines, and other text elements to dynamically adapt to their contexts, signifigantly reducing the need for multiple styles based on changing layout and device contexts. With this plugin, Typetura packages, complete with the technology and typographic styles, can easily be added to your website.
+Typetura transforms the typography on your WordPress website. Just select a typographic package and see all the text on your website transform. Your website can have big, bold, and responsive type, regardless of the layout or theme you use.
 
 == Description ==
 
-Typetura is a fluid typesetting technology that completely eliminates the need for breakpoints. It enables paragraphs, headlines, and other text elements to dynamically adapt to their contexts, signifigantly reducing the need for multiple styles based on changing layout and device contexts. With this plugin, Typetura packages, complete with the technology and typographic styles, can easily be added to your website.
+Typetura transforms the typography on your WordPress website. Just select a typographic package and see all the text on your website transform. Your website can have big, bold, and responsive type, regardless of the layout or theme you use.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `typetura.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
-
-== Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+1. Upload the `typetura` folder to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Navigate to ☞ Settings ☞ Typetura Settings in the WordPress admin panel to configure the plugin.
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Typetura’s New York package applied to the Twenty Twenty theme: /assets/screenshot-1.png
+2. Typetura’s Oxford package applied to the Twenty Twenty theme: /assets/screenshot-2.png
+3. Typetura’s Kampala package applied to the Twenty Twenty theme: /assets/screenshot-3.png
+4. Typetura’s Kampala package applied to the Twenty Sixteen theme: /assets/screenshot-4.png
+5. Typetura’s Austin package applied to the Twenty Nineteen theme: /assets/screenshot-5.png
+6. Typetura’s Prague package applied to the Twenty Seventeen theme: /assets/screenshot-6.png
 
 == Changelog ==
 
 = 1.0 =
-First release of Typetura, a fluid typesetting plugin for Wordpress
+The first release of Typetura, a fluid typesetting plugin, for WordPress

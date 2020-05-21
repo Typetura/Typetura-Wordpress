@@ -53,7 +53,7 @@
 			</th>
 			<td>
 				<p style="max-width: 70ch" class="description">
-					Thanks for using Typetura! Intrinsic typography for your website. To get started, you will need a paid Typetura account with an API key. If you need any assistance please see <a href="https://docs.typetura.com/using-typetura/configuration-with-packages">our documentation</a> or <a href="https://typetura.com">reach out to us</a>.
+					Thanks for using Typetura! Typetura transforms the typography on your WordPress website. Just select a typographic package and see all the text on your website transform. Your website can have big, bold, and responsive type, regardless of the layout or theme you use. To get started, you will need a paid Typetura account with an API key. If you need any assistance please see <a href="https://docs.typetura.com/using-typetura/configuration-with-packages">our documentation</a>.
 				</p>
 			</td>
 		</tr>
@@ -70,8 +70,7 @@
 				value="<?php if(!empty($typetura_api_key)) echo $typetura_api_key;?>"
 			/>
 				<p class="description">
-					<?php _e('You can find your API key in your <a href="https://typetura.com/account-settings">Typetura account settings</a>,', $this->plugin_name);?>
-					<?php _e('Or <a href="https://typetura.com/auth/create-account">Create a Typetura account</a>.', $this->plugin_name);?>
+					You can find your API key in your <a href="https://typetura.com/account-settings">Typetura account settings</a>, Or <a href="https://typetura.com/auth/create-account">Create a Typetura account</a>.
 				</p>
 			</td>
 		</tr>
@@ -144,7 +143,7 @@
 		</tr>
 		<tr>
 			<th scope="row">
-				<label for="auto-typesetting">Auto typesetting</label>
+				<label for="auto-typesetting">Disable auto typesetting</label>
 			</th>
 			<td>
 				<label>
@@ -154,9 +153,9 @@
 						name="<?php echo $this->plugin_name;?>[typetura_auto_typesetting]"
 						<?php checked( $typetura_auto_typesetting ); ?>
 					/>
-					Toggle auto typesetting
+					Disable auto typesetting
 				</label>
-				<p style="max-width: 70ch" class="description"><?php _e('Auto typesetting ensures the Typetura package applies to all of your headlines regardless of the class names used. If you wish to explicitly use the class names defined by the Typetura package, turn this off. If you’re unsure, leave this checked.', $this->plugin_name);?></p>
+				<p style="max-width: 70ch" class="description"><?php _e('Auto typesetting ensures the Typetura package applies to your text, regardless of the theme you use. If you wish to have manual control over how Typetura interacts with your theme, disable auto typesetting.', $this->plugin_name);?></p>
 			</td>
 		</tr>
 	</table>
