@@ -23,13 +23,19 @@
 
 	<?php
 		// Grab all options
-		$options = get_option($this->plugin_name);
-		
+		$defaults = array(
+		 	'typetura_package' => 'armonk',
+			'typetura_api_key' => 'XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX',
+			'typetura_base_size' => '20',
+			'typetura_disabled_auto_typesetting' => false
+	  );
+		$options = get_option($this->plugin_name, $defaults);
+
 		// Typetura Settings
 		$typetura_package = $options['typetura_package'];
 		$typetura_api_key = $options['typetura_api_key'];
 		$typetura_base_size = $options['typetura_base_size'];
-		$typetura_auto_typesetting = $options['typetura_auto_typesetting'];
+		$typetura_disabled_auto_typesetting = $options['typetura_disabled_auto_typesetting'];
 
 		$postdata = http_build_query(
 			array(
@@ -149,9 +155,9 @@
 				<label>
 					<input
 						type="checkbox"
-						id="<?php echo $this->plugin_name;?>-typetura_auto_typesetting"
-						name="<?php echo $this->plugin_name;?>[typetura_auto_typesetting]"
-						<?php checked( $typetura_auto_typesetting ); ?>
+						id="<?php echo $this->plugin_name;?>-typetura_disabled_auto_typesetting"
+						name="<?php echo $this->plugin_name;?>[typetura_disabled_auto_typesetting]"
+						<?php checked( $typetura_disabled_auto_typesetting ); ?>
 					/>
 					Disable auto typesetting
 				</label>

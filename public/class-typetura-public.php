@@ -51,8 +51,13 @@ class Typetura_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->typetura_options = get_option($this->plugin_name);
-
+		$defaults = array(
+		 	'typetura_package' => 'armonk',
+			'typetura_api_key' => 'XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX',
+			'typetura_base_size' => '20',
+			'typetura_disabled_auto_typesetting' => false
+	  );
+		$this->typetura_options = get_option($this->plugin_name, $defaults);
 	}
 
 	/**
@@ -104,7 +109,7 @@ class Typetura_Public {
 	 	$typetura_package = $this->typetura_options['typetura_package'];
 		$typetura_api_key = $this->typetura_options['typetura_api_key'];
 		$typetura_base_size = $this->typetura_options['typetura_base_size'];
-		$typetura_auto_typesetting = $this->typetura_options['typetura_auto_typesetting'];
+		$typetura_disabled_auto_typesetting = $this->typetura_options['typetura_disabled_auto_typesetting'];
 
 		if(!empty($typetura_package) && !empty($typetura_api_key)){
 			$js_link = "https://cdn.typetura.com/typetura.js?apiKey=$typetura_api_key";
@@ -113,7 +118,7 @@ class Typetura_Public {
 
 			$custom_js_link = plugin_dir_url( __FILE__ ) . 'js/typetura-public.js';
 
-			if( $typetura_auto_typesetting ) {
+			if( $typetura_disabled_auto_typesetting ) {
 				wp_enqueue_style($this->plugin_name,$css_link);
 				wp_enqueue_script($this->plugin_name,$js_link);
 			} else {
