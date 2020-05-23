@@ -36,8 +36,8 @@
 			)
 		);
 		
-		$response = file_get_contents ( 'https://cdn.typetura.com/get-packages' );
-		$packages = json_decode($response, true)['packages'];
+		$response = wp_remote_get('https://cdn.typetura.com/get-packages');
+		$packages = json_decode(wp_remote_retrieve_body($response),true)['packages'];
 	?>
 
 
