@@ -97,8 +97,6 @@ class Typetura_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/typetura-public.js', array( 'jquery' ), $this->version, false );
-
 	}
 
 	// Load Typetura Package
@@ -115,23 +113,22 @@ class Typetura_Public {
 
 			$custom_js_link = plugin_dir_url( __FILE__ ) . 'js/typetura-public.js';
 
-			?>
-			
-					<script src=<?php echo $js_link ?>></script>
+			if( $typetura_auto_typesetting ) {
+				wp_enqueue_style($this->plugin_name,$css_link);
+				wp_enqueue_script($this->plugin_name,$js_link);
+			} else {
+				wp_enqueue_style($this->plugin_name,$css_hs_link);
+				wp_enqueue_script('typetura_js_custom',$custom_js_link);
+				wp_enqueue_script('typetura_js_link',$js_link);
+			}
 
-					<?php if( $typetura_auto_typesetting ) {?>
-						<link rel="stylesheet" type="text/css" href=<?php echo $css_link ?>></link>
-					<?php } else { ?>
-						<link rel="stylesheet" type="text/css" href=<?php echo $css_hs_link ?>></link>
-						<script src=<?php echo $custom_js_link ?>></script>
-					<?php } if( $typetura_base_size ) { ?>
-						<style type="text/css">
-							:root {
-								--tt-base: <?php echo $typetura_base_size ?>;
-							}
-						</style>
-					<?php } ?>
-			<?php
+			if ( $typetura_base_size ) { ?>
+				<style type="text/css">
+					:root {
+						--tt-base: <?php echo $typetura_base_size ?>;
+					}
+				</style>
+			<?php }
 		}
 	}
 }
