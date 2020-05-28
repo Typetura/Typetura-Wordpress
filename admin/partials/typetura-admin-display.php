@@ -42,7 +42,7 @@
 			)
 		);
 		
-		$response = wp_remote_get('https://cdn.typetura.com/get-packages');
+		$response = wp_remote_get('https://cdn-staging.typetura.com/get-packages');
 		$packages = json_decode(wp_remote_retrieve_body($response),true)['packages'];
 	?>
 
