@@ -10,7 +10,7 @@
 # @link https://ericbusch.net/?p=106
 
 # EDIT THIS LINE
-SVNUSER="USERNAME_HERE" # Your WordPress.org SVN Username
+SVNUSER="typetura" # Your WordPress.org SVN Username
 
 # No editing required below this line.
 
@@ -22,9 +22,6 @@ read PLUGINSLUG
 CURRENTDIR=`pwd`
 CURRENTDIR="$CURRENTDIR/$PLUGINSLUG"
 MAINFILE="$PLUGINSLUG.php" # this should be the name of your main php file in the wordpress plugin
-
-# git config
-GITPATH="$CURRENTDIR/" # this file should be in the base of your git repository
 
 # svn config
 SVNPATH="/tmp/$PLUGINSLUG" # path to a temp SVN repo. No trailing slash required and don't add trunk.
@@ -48,18 +45,6 @@ if [ "$NEWVERSION1" != "$NEWVERSION2" ]; then echo "Versions don't match. Exitin
 
 echo "Versions match in readme.txt and PHP file. Let's proceed..."
 
-cd $GITPATH
-echo -e "Enter a commit message for this new version: \c"
-read COMMITMSG
-git commit -am "$COMMITMSG"
-
-echo "Tagging new version in git"
-git tag -a "$NEWVERSION1" -m "Tagging version $NEWVERSION1"
-
-echo "Pushing latest commit to origin, with tags"
-git push origin master
-git push origin master --tags
-
 echo
 echo "Creating local copy of SVN repo ..."
 svn co $SVNURL $SVNPATH
@@ -69,19 +54,6 @@ svn propset svn:ignore "deploy.sh
 README.md
 .git
 .gitignore" "$SVNPATH/trunk/"
-
-#export git -> SVN
-echo "Exporting the HEAD of master from git to the trunk of SVN"
-git checkout-index -a -f --prefix=$SVNPATH/trunk/
-
-#if submodule exist, recursively check out their indexes
-if [ -f ".gitmodules" ]
-then
-echo "Exporting the HEAD of each submodule from git to the trunk of SVN"
-git submodule init
-git submodule update
-git submodule foreach --recursive 'git checkout-index -a -f --prefix=$SVNPATH/trunk/$path/'
-fi
 
 echo "Changing directory to SVN and committing to trunk"
 cd $SVNPATH/trunk/
