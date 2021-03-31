@@ -7,7 +7,7 @@
  * so that it is ready for translation.
  *
  * @link       https://typetura.com
- * @since      1.0.0
+ * @since      1.0.3
  *
  * @package    Typetura
  * @subpackage Typetura/includes
@@ -19,7 +19,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @since      1.0.0
+ * @since      1.0.3
  * @package    Typetura
  * @subpackage Typetura/includes
  * @author     Salvador Hernandez <sal@typetura.com>
@@ -30,7 +30,7 @@ class Typetura_i18n {
 	/**
 	 * Load the plugin text domain for translation.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.3
 	 */
 	public function load_plugin_textdomain() {
 

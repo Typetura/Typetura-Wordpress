@@ -6,7 +6,7 @@
  * This file is used to markup the public-facing aspects of the plugin.
  *
  * @link       https://typetura.com
- * @since      1.0.0
+ * @since      1.0.3
  *
  * @package    Typetura
  * @subpackage Typetura/public/partials

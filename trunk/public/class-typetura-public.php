@@ -4,7 +4,7 @@
  * The public-facing functionality of the plugin.
  *
  * @link       https://typetura.com
- * @since      1.0.0
+ * @since      1.0.4
  *
  * @package    Typetura
  * @subpackage Typetura/public
@@ -20,54 +20,83 @@
  * @subpackage Typetura/public
  * @author     Salvador Hernandez <sal@typetura.com>
  */
-class Typetura_Public {
+class Typetura_Public
+{
+  /**
+   * The ID of this plugin.
+   *
+   * @since    1.0.4
+   * @access   private
+   * @var      string    $plugin_name    The ID of this plugin.
+   */
+  private $plugin_name;
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
+  /**
+   * The version of this plugin.
+   *
+   * @since    1.0.4
+   * @access   private
+   * @var      string    $version    The current version of this plugin.
+   */
+  private $version;
 
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
+  /**
+   * Initialize the class and set its properties.
+   *
+   * @since    1.0.4
+   * @param      string    $plugin_name       The name of the plugin.
+   * @param      string    $version    The version of this plugin.
+   */
+  public function __construct($plugin_name, $version)
+  {
+    $this->plugin_name = $plugin_name;
+    $this->version = $version;
+    $defaults = [
+      "typetura_package" => "armonk",
+      "typetura_api_key" => "XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX",
+      "typetura_base_size" => "20",
+      "typetura_scale" => "1",
+      "typetura_disabled_auto_typesetting" => false,
+    ];
+    $this->typetura_options = get_option($this->plugin_name, $defaults);
+  }
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
+  /**
+   * Register the stylesheets for the public-facing side of the site.
+   *
+   * @since    1.0.4
+   */
+  public function enqueue_styles()
+  {
+    /**
+     * This function is provided for demonstration purposes only.
+     *
+     * An instance of this class should be passed to the run() function
+     * defined in Typetura_Loader as all of the hooks are defined
+     * in that particular class.
+     *
+     * The Typetura_Loader will then create the relationship
+     * between the defined hooks and the functions defined in this
+     * class.
+     */
 
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-		$defaults = array(
-		 	'typetura_package' => 'armonk',
-			'typetura_api_key' => 'XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX',
-			'typetura_base_size' => '20',
-			'typetura_disabled_auto_typesetting' => false
-	  );
-		$this->typetura_options = get_option($this->plugin_name, $defaults);
-	}
+    wp_enqueue_style(
+      $this->plugin_name,
+      plugin_dir_url(__FILE__) . "css/typetura-public.css",
+      [],
+      $this->version,
+      "all"
+    );
+  }
 
-	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_styles() {
-
-		/**
+  /**
+   * Register the JavaScript for the public-facing side of the site.
+   *
+   * @since    1.0.4
+   */
+  public function enqueue_scripts()
+  {
+    /**
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
@@ -78,62 +107,42 @@ class Typetura_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+  }
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/typetura-public.css', array(), $this->version, 'all' );
+  // Load Typetura Package
+  public function typetura_cdn_package()
+  {
+    $typetura_package = $this->typetura_options["typetura_package"];
+    $typetura_api_key = $this->typetura_options["typetura_api_key"];
+    $typetura_base_size = $this->typetura_options["typetura_base_size"];
+    $typetura_scale = $this->typetura_options["typetura_scale"];
+    $typetura_disabled_auto_typesetting =
+      $this->typetura_options["typetura_disabled_auto_typesetting"];
 
-	}
+    if (!empty($typetura_package) && !empty($typetura_api_key)) {
+      $js_link = "https://cdn-staging.typetura.com/typetura.js?apiKey=$typetura_api_key";
+      $css_link = "https://cdn-staging.typetura.com/$typetura_package/typetura.css?apiKey=$typetura_api_key";
+      $css_hs_link = "https://cdn-staging.typetura.com/$typetura_package/typetura-hs.css?apiKey=$typetura_api_key";
 
-	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
+      $custom_js_link = plugin_dir_url(__FILE__) . "js/typetura-public.js";
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Typetura_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Typetura_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+      if ($typetura_disabled_auto_typesetting) {
+        wp_enqueue_style($this->plugin_name, $css_link);
+        wp_enqueue_script($this->plugin_name, $js_link);
+      } else {
+        wp_enqueue_style($this->plugin_name, $css_hs_link);
+        wp_enqueue_script("typetura_js_custom", $custom_js_link);
+        wp_enqueue_script("typetura_js_link", $js_link);
+      }
 
-	}
-
-	// Load Typetura Package
-	public function typetura_cdn_package(){
-	 	$typetura_package = $this->typetura_options['typetura_package'];
-		$typetura_api_key = $this->typetura_options['typetura_api_key'];
-		$typetura_base_size = $this->typetura_options['typetura_base_size'];
-		$typetura_disabled_auto_typesetting = $this->typetura_options['typetura_disabled_auto_typesetting'];
-
-		if(!empty($typetura_package) && !empty($typetura_api_key)){
-			$js_link = "https://cdn-staging.typetura.com/typetura.js?apiKey=$typetura_api_key";
-			$css_link = "https://cdn-staging.typetura.com/$typetura_package/typetura.css?apiKey=$typetura_api_key";
-			$css_hs_link = "https://cdn-staging.typetura.com/$typetura_package/typetura-hs.css?apiKey=$typetura_api_key";
-
-			$custom_js_link = plugin_dir_url( __FILE__ ) . 'js/typetura-public.js';
-
-			if( $typetura_disabled_auto_typesetting ) {
-				wp_enqueue_style($this->plugin_name,$css_link);
-				wp_enqueue_script($this->plugin_name,$js_link);
-			} else {
-				wp_enqueue_style($this->plugin_name,$css_hs_link);
-				wp_enqueue_script('typetura_js_custom',$custom_js_link);
-				wp_enqueue_script('typetura_js_link',$js_link);
-			}
-
-			if ( $typetura_base_size ) { ?>
+      if ($typetura_base_size || $typetura_scale) { ?>
 				<style type="text/css">
 					:root {
-						--tt-base: <?php echo $typetura_base_size ?>;
+						--tt-base: <?php echo $typetura_base_size; ?>;
+						--tt-base: <?php echo $typetura_scale; ?>;
 					}
 				</style>
 			<?php }
-		}
-	}
+    }
+  }
 }
