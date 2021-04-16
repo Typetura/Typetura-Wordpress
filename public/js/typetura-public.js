@@ -1,22 +1,44 @@
-const typetura_meta = document.querySelectorAll(["[class*='meta']"]);
-const typetura_primaryHeadline = document.querySelectorAll(["h1", ".site-title"]);
-const typetura_primarySubheadline = document.querySelectorAll(["h1 + h2", ".site-description"]);
-const typetura_secondaryHeadline = document.querySelectorAll("h2");
-const typetura_secondarySubheadline = document.querySelectorAll("h3", "h4", "h5", "h6");
+(function () {
+  // Typetura elements
+  const typetura_meta = ["[class*='meta']"];
+  const typetura_primaryHeadline = ["h1", ".site-title"];
+  const typetura_primarySubheadline = ["h1 + h2", ".site-description"];
+  const typetura_secondaryHeadline = ["h2"];
+  const typetura_secondarySubheadline = ["h3", "h4", "h5", "h6"];
 
-typetura_meta.forEach(function(e) {
-	e.classList.add("meta");
-});
-typetura_secondaryHeadline.forEach(function(e) {
-	e.classList.add("section-headline");
-});
-typetura_secondarySubheadline.forEach(function(e) {
-	e.classList.add("section-subheadline");
-});
-typetura_primaryHeadline.forEach(function(e) {
-	e.classList.add("primary-headline");
-});
-typetura_primarySubheadline.forEach(function(e) {
-	e.classList.remove("secondary-headline");
-	e.classList.add("primary-subheadline");
-});
+  // Look for new elements on the page that might be Typetura contexts.
+  const mutationObserver = new MutationObserver(mutations);
+  mutationObserver.observe(document.documentElement, {
+    childList: true,
+    attributes: false,
+    subtree: true,
+  });
+
+  // Loop through new elements and attach resize observations.
+  function mutations(mutationsList) {
+    mutationsList.forEach((mutation) => {
+      const nodes = mutation.addedNodes;
+      nodes.forEach((node) => {
+        if (node.classList) {
+          if (node.matches(typetura_meta)) {
+            node.classList.add("meta");
+          }
+          if (node.matches(typetura_secondaryHeadline)) {
+            node.classList.add("section-headline");
+          }
+          if (node.matches(typetura_secondarySubheadline)) {
+            node.classList.add("section-subheadline");
+          }
+          if (node.matches(typetura_primaryHeadline)) {
+            node.classList.add("primary-headline");
+            console.log(node);
+          }
+          if (node.matches(typetura_primarySubheadline)) {
+            node.classList.remove("secondary-headline");
+            node.classList.add("primary-subheadline");
+          }
+        }
+      });
+    });
+  }
+})();
