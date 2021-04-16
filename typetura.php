@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              https://typetura.com
- * @since             1.0.3
+ * @since             1.0.4
  * @package           Typetura
  *
  * @wordpress-plugin
  * Plugin Name:       Typetura
  * Plugin URI:        typetura.com/
  * Description:       We typeset your website! Typography that works on your website regardless of layout or device.
- * Version:           1.0.3
+ * Version:           1.0.4
  * Author:            Typetura
  * Author URI:        https://typetura.com
  * License:           GPL-2.0+
@@ -32,10 +32,10 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Currently plugin version.
- * Start at version 1.0.3 and use SemVer - https://semver.org
+ * Start at version 1.0.4 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'TYPETURA_VERSION', '1.0.3' );
+define( 'TYPETURA_VERSION', '1.0.4' );
 
 /**
  * The code that runs during plugin activation.
@@ -71,7 +71,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-typetura.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.3
+ * @since    1.0.4
  */
 function run_typetura() {
 

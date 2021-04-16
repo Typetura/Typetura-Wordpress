@@ -139,7 +139,7 @@ class Typetura_Public
 				<style type="text/css">
 					:root {
 						--tt-base: <?php echo $typetura_base_size; ?>;
-						--tt-base: <?php echo $typetura_scale; ?>;
+						--tt-scale: <?php echo $typetura_scale; ?>;
 					}
 				</style>
 			<?php }

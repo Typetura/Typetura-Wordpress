@@ -100,6 +100,70 @@
 			margin: 0.5rem 0;
 			font-size: 1.2em;
 		}
+
+		input[type=range] {
+			-webkit-appearance: none;
+			appearance: none;
+			margin: 0;
+			width: 100%;
+			max-width: 300px;
+			background: none;
+			display: inline-block;
+			vertical-align: baseline;
+		}
+		input[type=range]:focus {
+			outline: none;
+		}
+		input[type=range]::-webkit-slider-runnable-track {
+			width: 100%;
+			height: 2px;
+			cursor: pointer;
+			background: #2271b1;
+			border-radius: 4px;
+		}
+		input[type=range]::-webkit-slider-thumb {
+			height: 1rem;
+			width: 1rem;
+			border-radius: 50%;
+			background: #fff;
+			border: 1px solid #2271b1;
+			cursor: pointer;
+			-webkit-appearance: none;
+			margin-top: calc(1px - 0.5rem);
+			box-sizing: border-box;
+			transition: all 0.2s ease-in-out;
+		}
+		input[type=range]:focus::-webkit-slider-thumb {
+			box-shadow: 0 0 0 1px #2271b1, 0 0 0 5px #f0f0f1;
+		}
+		input[type=range]:hover::-webkit-slider-thumb {
+			box-shadow: 0 0 0 1px #2271b1, 0 0 0 5px #f0f0f1;
+		}
+		input[type=range]::-moz-range-track {
+			width: 100%;
+			height: 2px;
+			cursor: pointer;
+			background: #2271b1;
+			border-radius: 4px;
+		}
+		input[type=range]::-moz-range-thumb {
+			height: 1rem;
+			width: 1rem;
+			border-radius: 50%;
+			background: #fff;
+			border: 1px solid #2271b1;
+			cursor: pointer;
+			-webkit-appearance: none;
+			margin-top: calc(1px - 0.5rem);
+			box-sizing: border-box;
+			transition: all 0.2s ease-in-out;
+		}
+		input[type=range]:focus::-moz-range-thumb {
+			box-shadow: 0 0 0 1px #2271b1, 0 0 0 5px #f0f0f1;
+		}
+		input[type=range]:hover::-moz-range-thumb {
+			box-shadow: 0 0 0 1px #2271b1, 0 0 0 5px #f0f0f1;
+		}
 	</style>
 
 	<table class="form-table" role="presentation">
@@ -170,7 +234,9 @@
 		</tr>
 <tr>
 	<th scope="row">
-		<label for="base-size">Base size</label>
+		<label for="base-size">Base size <output id="base-size-output"><?php if (!empty($typetura_base_size)) {
+      echo $typetura_base_size;
+    } else { echo 20; } ?>px</output></label>
 	</th>
 	<td>
 		<label>
@@ -184,34 +250,29 @@
 				}
 			</style>
 			<input
-				type="number"
+				type="range"
 				step="1"
 				min="12"
 				max="34"
-				size="2"
-				placeholder="20"
 				value="<?php if (!empty($typetura_base_size)) {
       echo $typetura_base_size;
-    } ?>"
+    } else { echo 20; } ?>"
 				id="<?php echo $this->plugin_name; ?>-typetura_base_size"
 				name="<?php echo $this->plugin_name; ?>[typetura_base_size]"
+				oninput="document.getElementById('base-size-output').value = this.value + 'px'"
 			/>
-			<span
-				class="<?php echo $this->plugin_name; ?>-typetura_base_size--invalid"
-				style="color: #e1340c; font-weight: 700; margin-left: .25em;"
-			>
-				This must be a unitless value between 12 and 34.
-			</span>
 		</label>
 		<p style="max-width: 70ch" class="description"><?php _e(
-    "If you find the font size too big or small, you can adjust it here. The default value is <code>20</code> and values of <code>12</code> through <code>34</code> are accepted. These values will map to pixel values for most people, but there will be variation based on screen size and user preferences.",
+    "If you find the font size too big or small, you can adjust it here. The default value is <code>20</code>. The rendered value may vary based on screen size and user preferences.",
     $this->plugin_name
   ); ?></p>
 	</td>
 </tr>
 <tr>
 	<th scope="row">
-		<label for="scale">Scale factor</label>
+		<label for="scale">Scale factor <output id="scale-output"><?php if (!empty($typetura_scale)) {
+      echo $typetura_scale;
+    } else { echo 1; } ?>x</output></label>
 	</th>
 	<td>
 		<label>
@@ -225,24 +286,17 @@
 				}
 			</style>
 			<input
-				type="number"
+				type="range"
 				step="0.1"
 				min="0.1"
 				max="3"
-				size="2"
-				placeholder="1"
 				value="<?php if (!empty($typetura_scale)) {
       echo $typetura_scale;
-    } ?>"
+    } else { echo 1; } ?>"
 				id="<?php echo $this->plugin_name; ?>-typetura_scale"
 				name="<?php echo $this->plugin_name; ?>[typetura_scale]"
+				oninput="document.getElementById('scale-output').value = this.value + 'x'"
 			/>
-			<span
-				class="<?php echo $this->plugin_name; ?>-typetura_scale--invalid"
-				style="color: #e1340c; font-weight: 700; margin-left: .25em;"
-			>
-				This must be a unitless value between 0.1 and 3.
-			</span>
 		</label>
 		<p style="max-width: 70ch" class="description"><?php _e(
     "Sometimes you might find your headlines to be a little too big or small relative to your text. Adjusting the scale factor will change how big or small your headlines will go. The default scale factor is <code>1</code>.",
@@ -282,6 +336,7 @@
   </form>
 
 	<script>
+
 		document.getElementById('typetura-typetura_package').addEventListener('change', function(e) {
 			var packageName = e.target.value;
 

@@ -2,7 +2,7 @@
 Contributors: Typetura
 Tags: typography, design, typesetting, type, font
 Requires at least: 5.0.0
-Tested up to: 5.7
+Tested up to: 5.7.1
 Stable tag: 5.4
 License: GPL-2.0+
 
@@ -78,6 +78,9 @@ Reach out to us at [support@typetura.com](mailto:support@typetura.com) with a li
 == Changelog ==
 
 = 1.0.4 =
+* Added scale factor
+
+= 1.0.3 =
 * Added Black Lives Matter note
 
 = 1.0.2 =
