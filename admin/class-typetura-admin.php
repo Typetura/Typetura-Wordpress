@@ -22,7 +22,7 @@ class Typetura_Admin
     $custom_js_link = plugin_dir_url(__FILE__) . "js/typetura-admin.js";
 
     if (!empty($typetura_package) && !empty($typetura_api_key)) {
-      $js_link = "https://typetura.com/typetura.js?apiKey=$typetura_api_key";
+      $js_link = "https://cdn.typetura.com/typetura.js?apiKey=$typetura_api_key";
       $css_link_admin = "https://cdn.typetura.com/$typetura_package/typetura-admin.css?apiKey=$typetura_api_key";
 
       if (!$typetura_disabled_auto_typesetting) {

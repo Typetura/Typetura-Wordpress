@@ -30,7 +30,7 @@ class Typetura_Public
       $this->typetura_options["typetura_disabled_auto_typesetting"];
 
     if (!empty($typetura_package) && !empty($typetura_api_key)) {
-      $js_link = "https://typetura.com/typetura.js?apiKey=$typetura_api_key";
+      $js_link = "https://cdn.typetura.com/typetura.js?apiKey=$typetura_api_key";
       $css_link = "https://cdn.typetura.com/$typetura_package/typetura.css?apiKey=$typetura_api_key";
       $css_hs_link = "https://cdn.typetura.com/$typetura_package/typetura-hs.css?apiKey=$typetura_api_key";
       $custom_js_link = plugin_dir_url(__FILE__) . "js/typetura-public.js";
