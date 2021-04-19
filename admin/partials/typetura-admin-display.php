@@ -42,7 +42,7 @@
 
  $postdata = http_build_query([]);
 
- $response = wp_remote_get("https://cdn-staging.typetura.com/get-packages");
+ $response = wp_remote_get("https://cdn.typetura.com/get-packages");
  $packages = json_decode(wp_remote_retrieve_body($response), true)["packages"];
  ?>
 
@@ -234,9 +234,13 @@
 		</tr>
 <tr>
 	<th scope="row">
-		<label for="base-size">Base size <output id="base-size-output"><?php if (!empty($typetura_base_size)) {
-      echo $typetura_base_size;
-    } else { echo 20; } ?>px</output></label>
+		<label for="base-size">Base size <output id="base-size-output"><?php if (
+    !empty($typetura_base_size)
+  ) {
+    echo $typetura_base_size;
+  } else {
+    echo 20;
+  } ?>px</output></label>
 	</th>
 	<td>
 		<label>
@@ -256,7 +260,9 @@
 				max="34"
 				value="<?php if (!empty($typetura_base_size)) {
       echo $typetura_base_size;
-    } else { echo 20; } ?>"
+    } else {
+      echo 20;
+    } ?>"
 				id="<?php echo $this->plugin_name; ?>-typetura_base_size"
 				name="<?php echo $this->plugin_name; ?>[typetura_base_size]"
 				oninput="document.getElementById('base-size-output').value = this.value + 'px'"
@@ -270,9 +276,13 @@
 </tr>
 <tr>
 	<th scope="row">
-		<label for="scale">Scale factor <output id="scale-output"><?php if (!empty($typetura_scale)) {
-      echo $typetura_scale;
-    } else { echo 1; } ?>x</output></label>
+		<label for="scale">Scale factor <output id="scale-output"><?php if (
+    !empty($typetura_scale)
+  ) {
+    echo $typetura_scale;
+  } else {
+    echo 1;
+  } ?>x</output></label>
 	</th>
 	<td>
 		<label>
@@ -292,7 +302,9 @@
 				max="3"
 				value="<?php if (!empty($typetura_scale)) {
       echo $typetura_scale;
-    } else { echo 1; } ?>"
+    } else {
+      echo 1;
+    } ?>"
 				id="<?php echo $this->plugin_name; ?>-typetura_scale"
 				name="<?php echo $this->plugin_name; ?>[typetura_scale]"
 				oninput="document.getElementById('scale-output').value = this.value + 'x'"

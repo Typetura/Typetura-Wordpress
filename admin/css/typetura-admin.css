@@ -1,4 +1,292 @@
-/**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
+/*!
+ * Copyright 2018-2021 Typetura LLC
+ * typetura.com
+ *
+ * US Patent US10769348B1
  */
+@import url("https://fonts.googleapis.com/css2?family=BioRhyme:wght@200;400;700&family=Alegreya:ital,wght@0,400;0,700;1,400;1,700&family=Vampiro+One&display=swap");
+:root:root:root {
+  font-size: calc(100% * var(--tt-base) / 16);
+}
+:root:root:root body {
+  font-size: 1em;
+}
+:root:root:root:root .edit-post-visual-editor * {
+  font-family: inherit;
+  font-size: unset;
+  line-height: inherit;
+}
+:root:root:root:root .edit-post-visual-editor h1,
+:root:root:root:root .edit-post-visual-editor h2,
+:root:root:root:root .edit-post-visual-editor h3,
+:root:root:root:root .edit-post-visual-editor h4,
+:root:root:root:root .edit-post-visual-editor h5,
+:root:root:root:root .edit-post-visual-editor h6,
+:root:root:root:root .edit-post-visual-editor p,
+:root:root:root:root .edit-post-visual-editor blockquote {
+  --tt-key: line-height;
+  --tt-max: 1200;
+  --tt-ease: linear;
+  font-size: 1em;
+  font-weight: inherit;
+  font-style: inherit;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+.biorhyme {
+  font-family: BioRhyme, serif;
+}
+.vampiro-one {
+  font-family: "Vampiro One", serif;
+}
+.alegreya {
+  font-family: Alegreya, serif;
+}
+:root:root:root:root .edit-post-visual-editor {
+  --font-headline: BioRhyme, serif;
+  --font-text: Alegreya, serif;
+  --ease-headline: cubic-bezier(0.5, 0, 0.5, 1);
+  font-family: var(--font-text);
+  font-size: calc(100% * var(--tt-base) / 16);
+  line-height: 1.4;
+  --tt-ease: cubic-bezier(0, 0.75, 0.1, 0.9);
+  --tt-key: ud6f204b6;
+  --tt-max: 1000;
+}
+@keyframes ud6f204b6 {
+  0% {
+    font-size: 0%;
+    line-height: 1.35;
+  }
+  100% {
+    font-size: calc(100% * var(--tt-base) / 16);
+    line-height: 1.45;
+  }
+}
+@keyframes line-height {
+  0% {
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+  100% {
+    line-height: 1.45;
+    letter-spacing: 0.02rem;
+  }
+}
+:root:root:root:root .edit-post-visual-editor ol,
+:root:root:root:root .edit-post-visual-editor ul {
+  font-size: 0.95rem;
+}
+:root:root:root:root .edit-post-visual-editor hr {
+  border: 1px solid;
+  border-bottom: 0;
+  opacity: 0.5;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+:root:root:root:root .edit-post-visual-editor blockquote {
+  padding-left: 1em;
+  font-size: 0.95em;
+  position: relative;
+}
+:root:root:root:root .edit-post-visual-editor blockquote:before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  left: 0;
+  height: 100%;
+  opacity: 0.5;
+  background: currentColor;
+}
+:root:root:root:root .edit-post-visual-editor .caps {
+  font-size: 0.9em;
+  letter-spacing: 0.05em;
+}
+:root:root:root:root .edit-post-visual-editor table,
+:root:root:root:root .edit-post-visual-editor .tabular {
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  border-collapse: collapse;
+  line-height: 1.3;
+  margin-top: 1.5em;
+  margin-bottom: 1.75em;
+  font-size: 1em;
+}
+:root:root:root:root .edit-post-visual-editor th {
+  padding: 0 0.75em 0.5em;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.2em;
+}
+:root:root:root:root .edit-post-visual-editor td {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.75em;
+}
+:root:root:root:root .edit-post-visual-editor .numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+:root:root:root:root .edit-post-visual-editor code {
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: 0.8em;
+}
+:root:root:root:root .edit-post-visual-editor small,
+:root:root:root:root .edit-post-visual-editor .small,
+:root:root:root:root .edit-post-visual-editor .caption,
+:root:root:root:root .edit-post-visual-editor figcaption {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  --tt-key: u0b83004d;
+  --tt-max: 1200;
+}
+@keyframes u0b83004d {
+  0% {
+    font-size: 0.9rem;
+  }
+  100% {
+    font-size: 0.75rem;
+  }
+}
+:root:root:root:root .edit-post-visual-editor big,
+:root:root:root:root .edit-post-visual-editor .big {
+  font-size: 1.2em;
+  --tt-key: ue74c1bd8;
+  --tt-max: 1200;
+}
+@keyframes ue74c1bd8 {
+  0% {
+    font-size: 1rem;
+  }
+  100% {
+    font-size: calc(1rem + (0.3rem * var(--tt-scale)));
+    line-height: 1.25;
+  }
+}
+:root:root:root:root .edit-post-visual-editor .caption,
+:root:root:root:root .edit-post-visual-editor figcaption {
+  margin-top: 0.75em;
+  margin-bottom: 2em;
+  padding: 0 0 0.75em;
+  font-size: 0.85em;
+  line-height: 1.35;
+  font-style: italic;
+  position: relative;
+  text-align: left;
+  letter-spacing: 0.015em;
+}
+:root:root:root:root .edit-post-visual-editor .primary-headline {
+  font-family: var(--font-headline);
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  --tt-ease: var(--ease-headline);
+  --tt-key: u1e999492;
+  --tt-max: 2000;
+}
+@keyframes u1e999492 {
+  0% {
+    font-size: 1rem;
+    line-height: 1;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  100% {
+    font-size: calc(1rem + (5rem * var(--tt-scale)));
+    line-height: 0.9;
+    margin-top: 1rem;
+    margin-bottom: calc(1rem + (1rem * var(--tt-scale)));
+  }
+}
+:root:root:root:root .edit-post-visual-editor .primary-subheadline {
+  font-family: "Vampiro One", var(--font-headline);
+  font-size: 1.4rem;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  --tt-ease: var(--ease-headline);
+  --tt-key: ud00c0ba9;
+  --tt-max: 2000;
+}
+@keyframes ud00c0ba9 {
+  0% {
+    font-size: 1rem;
+    line-height: 1;
+    margin-top: -0.6rem;
+    margin-bottom: 1rem;
+  }
+  100% {
+    font-size: calc(1rem + (1rem * var(--tt-scale)));
+    line-height: 1;
+    margin-top: calc(-1rem - (-0.4rem * var(--tt-scale)));
+    margin-bottom: calc(1rem + (1rem * var(--tt-scale)));
+  }
+}
+:root:root:root:root .edit-post-visual-editor .meta {
+  font-family: var(--font-headline);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+:root:root:root:root .edit-post-visual-editor .section-headline {
+  --tt-ease: var(--ease-headline);
+  font-family: var(--font-headline);
+  font-size: 1.6rem;
+  line-height: 1.1;
+  margin-top: 1.6rem;
+  margin-bottom: 1rem;
+  padding-top: 1.3rem;
+  --tt-key: u88f3ab99;
+  --tt-max: 1400;
+}
+@keyframes u88f3ab99 {
+  0% {
+    font-size: 1rem;
+  }
+  100% {
+    font-size: calc(1rem + (2rem * var(--tt-scale)));
+  }
+}
+:root:root:root:root .edit-post-visual-editor .section-subheadline {
+  font-family: var(--font-text);
+  margin-top: 2.25rem;
+  font-size: 1.2rem;
+  --tt-key: ue438e7d6;
+  --tt-max: 1200;
+}
+@keyframes ue438e7d6 {
+  0% {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+  }
+  100% {
+    margin-top: calc(1rem + (1.5rem * var(--tt-scale)));
+    font-size: calc(1rem + (0.3rem * var(--tt-scale)));
+  }
+}
+:root:root:root:root .edit-post-visual-editor .section-label {
+  font-family: var(--font-text);
+  margin-top: 3em;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+:root:root:root:root .edit-post-visual-editor .pullquote {
+  font-family: var(--font-headline);
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 200;
+  --tt-ease: var(--ease-headline);
+  --tt-key: u61ea5e44;
+  --tt-max: 1200;
+}
+@keyframes u61ea5e44 {
+  0% {
+    font-size: 1rem;
+  }
+  100% {
+    font-size: calc(1rem + (2rem * var(--tt-scale)));
+  }
+}
