@@ -5,7 +5,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link       https://typetura.com
- * @since      1.0.4
+ * @since      1.0.5
  *
  * @package    Typetura
  * @subpackage Typetura/admin/partials
@@ -42,7 +42,7 @@
 
  $postdata = http_build_query([]);
 
- $response = wp_remote_get("https://cdn-staging.typetura.com/get-packages");
+ $response = wp_remote_get("https://cdn.typetura.com/get-packages");
  $packages = json_decode(wp_remote_retrieve_body($response), true)["packages"];
  ?>
 
@@ -50,6 +50,12 @@
 	<?php
  settings_fields($this->plugin_name);
  do_settings_sections($this->plugin_name);
+
+ $js_link = "https://cdn.typetura.com/typetura.js?apiKey=$typetura_api_key";
+ $css_link_admin = "https://cdn.typetura.com/$typetura_package/typetura-admin.css?apiKey=$typetura_api_key";
+
+ wp_enqueue_style($this->plugin_name, $css_link_admin);
+ wp_enqueue_script($this->plugin_name, $js_link);
 
  if ($hostname === "localhost") { ?>
 
@@ -79,10 +85,11 @@
 		  border: 1px solid #ccc;
 		  box-shadow: 0 3px 8px #ddd;
 		  border-radius: 6px;
-		  padding: 1rem 1rem 1rem 1.5rem;
-		  margin: 2rem 2rem 1rem;
+		  padding: 16px 16px 16px 24px;
+		  margin: 32px 32px 16px;
 		  max-width: 800px;
 		  position: relative;
+			font-size: 16px;
 		}
 		.dops-notice__icon-wrapper svg {
 		  fill: #0073aa;
@@ -97,8 +104,12 @@
 			margin-top: 0;
 		}
 		.dops-notice__text {
-			margin: 0.5rem 0;
+			margin: 8px 0;
 			font-size: 1.2em;
+		}
+		.dops-notice__content * {
+			margin: 6px 0;
+			line-height: 1.3;
 		}
 
 		input[type=range] {
@@ -122,14 +133,14 @@
 			border-radius: 4px;
 		}
 		input[type=range]::-webkit-slider-thumb {
-			height: 1rem;
-			width: 1rem;
+			height: 16px;
+			width: 16px;
 			border-radius: 50%;
 			background: #fff;
 			border: 1px solid #2271b1;
 			cursor: pointer;
 			-webkit-appearance: none;
-			margin-top: calc(1px - 0.5rem);
+			margin-top: calc(112px);
 			box-sizing: border-box;
 			transition: all 0.2s ease-in-out;
 		}
@@ -147,14 +158,14 @@
 			border-radius: 4px;
 		}
 		input[type=range]::-moz-range-thumb {
-			height: 1rem;
-			width: 1rem;
+			height: 16px;
+			width: 16px;
 			border-radius: 50%;
 			background: #fff;
 			border: 1px solid #2271b1;
 			cursor: pointer;
 			-webkit-appearance: none;
-			margin-top: calc(1px - 0.5rem);
+			margin-top: calc(-7px);
 			box-sizing: border-box;
 			transition: all 0.2s ease-in-out;
 		}
@@ -163,6 +174,9 @@
 		}
 		input[type=range]:hover::-moz-range-thumb {
 			box-shadow: 0 0 0 1px #2271b1, 0 0 0 5px #f0f0f1;
+		}
+		#collapse-button {
+			font-size: 13px;
 		}
 	</style>
 
@@ -175,9 +189,9 @@
 				<p style="max-width: 70ch" class="description">
 					Thanks for using Typetura! Typetura transforms the typography on your WordPress website. Just select a typographic package and see all the text on your website transform. Your website can have big, bold, and responsive type, regardless of the layout or theme you use. To get started, you will need a paid Typetura account with an API key.
 				</p>
-				<div style="display: flex; margin: 1rem 0;">
-					<a style="margin-right: 0.3rem" class="button button-primary" href="https://typetura.com/auth/create-account" target="_blank">Purchase a subscription</a>
-					<a style="margin-right: 0.3rem" class="button button-primary" href="https://typetura.com/account-settings" target="_blank">Find your API key</a>
+				<div style="display: flex; margin: 16px 0;">
+					<a style="margin-right: 5px" class="button button-primary" href="https://typetura.com/auth/create-account" target="_blank">Purchase a subscription</a>
+					<a style="margin-right: 5px" class="button button-primary" href="https://typetura.com/account-settings" target="_blank">Find your API key</a>
 					<a class="button button-primary" href="https://docs.typetura.com/using-typetura/configuration-with-packages" target="_blank">Documentation</a>
 				</div>
 			</td>
@@ -206,6 +220,7 @@
 				<select
 					id="<?php echo $this->plugin_name; ?>-typetura_package"
 					name="<?php echo $this->plugin_name; ?>[typetura_package]"
+					oninput="changePack(this.value)"
 				>
 					<?php foreach ($packages as $key => $package) { ?>
 						<?php $selected = $typetura_package === $package["name"] ? "selected" : ""; ?>
@@ -217,13 +232,6 @@
 						</option>
 					<?php } ?>
 				</select>
-				<img 
-					id="package-preview" 
-					src="https://s3.amazonaws.com/typetura.com/production/<?php echo $typetura_package; ?>/preview.png" 
-					alt="Package Preview" 
-					class="package_image"
-					style="display: block; background: #ddd; border-radius: 6px; width: 320px; height: 160px; margin: 1rem 0; border: 1px solid #ccc; box-shadow: 0 3px 8px #ddd;"
-				>
 				<p class="description">
 					<?php _e(
        'You can <a href="https://typetura.com/typography-packages">browse the packages at Typetura.com.</a>',
@@ -234,21 +242,16 @@
 		</tr>
 <tr>
 	<th scope="row">
-		<label for="base-size">Base size <output id="base-size-output"><?php if (!empty($typetura_base_size)) {
-      echo $typetura_base_size;
-    } else { echo 20; } ?>px</output></label>
+		<label for="base-size">Base size <output id="base-size-output"><?php if (
+    !empty($typetura_base_size)
+  ) {
+    echo $typetura_base_size;
+  } else {
+    echo 20;
+  } ?>px</output></label>
 	</th>
 	<td>
 		<label>
-			<style>
-				#<?php echo $this->plugin_name; ?>-typetura_base_size:invalid {
-					box-shadow: 0 0 0 4px #e1340c52 !important;
-					border-color: #e1340c !important;
-				}
-				#<?php echo $this->plugin_name; ?>-typetura_base_size:valid ~ .<?php echo $this->plugin_name; ?>-typetura_base_size--invalid {
-					display: none;
-				}
-			</style>
 			<input
 				type="range"
 				step="1"
@@ -256,10 +259,12 @@
 				max="34"
 				value="<?php if (!empty($typetura_base_size)) {
       echo $typetura_base_size;
-    } else { echo 20; } ?>"
+    } else {
+      echo 20;
+    } ?>"
 				id="<?php echo $this->plugin_name; ?>-typetura_base_size"
 				name="<?php echo $this->plugin_name; ?>[typetura_base_size]"
-				oninput="document.getElementById('base-size-output').value = this.value + 'px'"
+				oninput="changeBase(this.value)"
 			/>
 		</label>
 		<p style="max-width: 70ch" class="description"><?php _e(
@@ -270,21 +275,16 @@
 </tr>
 <tr>
 	<th scope="row">
-		<label for="scale">Scale factor <output id="scale-output"><?php if (!empty($typetura_scale)) {
-      echo $typetura_scale;
-    } else { echo 1; } ?>x</output></label>
+		<label for="scale">Scale factor <output id="scale-output"><?php if (
+    !empty($typetura_scale)
+  ) {
+    echo $typetura_scale;
+  } else {
+    echo 1;
+  } ?>x</output></label>
 	</th>
 	<td>
 		<label>
-			<style>
-				#<?php echo $this->plugin_name; ?>-typetura_scale:invalid {
-					box-shadow: 0 0 0 4px #e1340c52 !important;
-					border-color: #e1340c !important;
-				}
-				#<?php echo $this->plugin_name; ?>-typetura_scale:valid ~ .<?php echo $this->plugin_name; ?>-typetura_scale--invalid {
-					display: none;
-				}
-			</style>
 			<input
 				type="range"
 				step="0.1"
@@ -292,16 +292,58 @@
 				max="3"
 				value="<?php if (!empty($typetura_scale)) {
       echo $typetura_scale;
-    } else { echo 1; } ?>"
+    } else {
+      echo 1;
+    } ?>"
 				id="<?php echo $this->plugin_name; ?>-typetura_scale"
 				name="<?php echo $this->plugin_name; ?>[typetura_scale]"
-				oninput="document.getElementById('scale-output').value = this.value + 'x'"
+				oninput="changeScale(this.value)"
 			/>
 		</label>
 		<p style="max-width: 70ch" class="description"><?php _e(
     "Sometimes you might find your headlines to be a little too big or small relative to your text. Adjusting the scale factor will change how big or small your headlines will go. The default scale factor is <code>1</code>.",
     $this->plugin_name
   ); ?></p>
+	</td>
+</tr>
+<tr>
+	<th scope="row">
+		<label for="scale">Preview</label>
+	</th>
+	<td>
+		<div class="typetura-preview edit-post-visual-editor">
+			<section>
+				<h1 class="primary-headline">The perfect staycation</h1>
+				<h2 class="primary-subheadline">How to Get Away While You’re at Home</h2>
+				<p> When you’re commuting to a 9-to-5, you long for the weekends, the beach and the get-things-done, life-organizing staycation. Our current environment has turned life on its head, and now more than ever we dream of being anywhere but at home. Until a quick trip to a new locale is an option, we’ve got everything you need to get away at home.</p>
+			</section>
+			<section>
+				<h1 class="section-headline">A Day of Food and Customs to Transport You to the South of France</h1>
+				<p> Lauren Paul and her husband spent all of last week cancelling their honeymoon. “We were devastated until we realized how dangerous not cancelling would have been for all of the hospitality workers we would have depended on.” Lauren reported. Not one to dwell on life’s curve balls, Lauren and Jose decided to bring a little Provence into their home. “We had already done so much research on the food, the farming culture, the way people care for the land in Provence. We thought, why not spend a day pretending we’re there.” </p>
+			</section>
+			<section>
+				<h1 class="section-headline">Why Learning a Language is More Important Than Ever</h1>
+				<p> My mother spoke Spanish with us at home from birth, through our disdainful teenage years, and on every phone call until the day she passed. When I was a youngster without the perspective that comes with experience, I asked her why she was so dedicated to us being bilingual. The simple answer, “If you and your sister do not know Spanish, you cannot teach it to your children.” </p>
+			</section>
+		  <style>
+				.typetura-preview {
+					display: grid;
+					grid-template-rows: auto auto;
+					grid-template-columns: 3fr 2fr;
+					background: #fff;
+					border-radius: 6px;
+					margin: 16px 0;
+					border: 1px solid #ccc;
+					box-shadow: 0 3px 8px #ddd;
+					padding: 0 1rem 1rem;
+					gap: 1rem;
+					max-width: 800px;
+				}
+				.typetura-preview section:first-child {
+					grid-column-end: span 2;
+				}
+			</style>
+		</div>
 	</td>
 </tr>
 		<tr>
@@ -342,5 +384,47 @@
 
 			document.getElementById('package-preview').src = "https://s3.amazonaws.com/typetura.com/production/" + packageName + '/preview.png';
 		});
+		
+		const resizeObserver = new ResizeObserver((entries) => {
+			for (let entry of entries) {
+				if (entry.contentBoxSize) {
+					entry.target.style.setProperty("--tt-bind", entry.contentRect.width);
+				}
+			}
+		});
+		
+		document.documentElement.style.setProperty('--tt-base', <?php if (
+    !empty($typetura_base_size)
+  ) {
+    echo $typetura_base_size;
+  } else {
+    echo 20;
+  } ?>);
+		document.documentElement.style.setProperty('--tt-scale', <?php if (
+    !empty($typetura_scale)
+  ) {
+    echo $typetura_scale;
+  } else {
+    echo 1;
+  } ?>);
+
+		const previewSections = document.querySelectorAll('.edit-post-visual-editor section');
+		
+		previewSections.forEach(e => {
+			resizeObserver.observe(e)
+		});
+	
+		
+		function changeBase(v) {
+			document.getElementById('base-size-output').value = v + 'px';
+			document.documentElement.style.setProperty('--tt-base', v);
+		}
+		function changeScale(v) {
+			document.getElementById('scale-output').value = v + 'x';
+			document.documentElement.style.setProperty('--tt-scale', v);
+		}
+		function changePack(v) {
+			document.getElementById('typetura-css').setAttribute('href',`https://cdn.typetura.com/${v}/typetura-admin.css?apiKey=<?php echo $typetura_api_key; ?>`);
+		}
 	</script>
 </div>

@@ -57,21 +57,12 @@ class Typetura
    */
   protected $version;
 
-  /**
-   * Define the core functionality of the plugin.
-   *
-   * Set the plugin name and the plugin version that can be used throughout the plugin.
-   * Load the dependencies, define the locale, and set the hooks for the admin area and
-   * the public-facing side of the site.
-   *
-   * @since    1.0.4
-   */
   public function __construct()
   {
     if (defined("TYPETURA_VERSION")) {
       $this->version = TYPETURA_VERSION;
     } else {
-      $this->version = "1.0.4";
+      $this->version = "1.0.5";
     }
     $this->plugin_name = "typetura";
 

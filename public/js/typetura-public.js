@@ -14,6 +14,14 @@
     subtree: true,
   });
 
+  const resizeObserver = new ResizeObserver((entries) => {
+    for (let entry of entries) {
+      if (entry.contentBoxSize) {
+        entry.target.style.setProperty("--tt-bind", entry.contentRect.width);
+      }
+    }
+  });
+
   // Loop through new elements and attach resize observations.
   function mutations(mutationsList) {
     mutationsList.forEach((mutation) => {
@@ -22,20 +30,24 @@
         if (node.classList) {
           if (node.matches(typetura_meta)) {
             node.classList.add("meta");
+            resizeObserver.observe(node);
           }
           if (node.matches(typetura_secondaryHeadline)) {
             node.classList.add("section-headline");
+            resizeObserver.observe(node);
           }
           if (node.matches(typetura_secondarySubheadline)) {
             node.classList.add("section-subheadline");
+            resizeObserver.observe(node);
           }
           if (node.matches(typetura_primaryHeadline)) {
             node.classList.add("primary-headline");
-            console.log(node);
+            resizeObserver.observe(node);
           }
           if (node.matches(typetura_primarySubheadline)) {
             node.classList.remove("secondary-headline");
             node.classList.add("primary-subheadline");
+            resizeObserver.observe(node);
           }
         }
       });
