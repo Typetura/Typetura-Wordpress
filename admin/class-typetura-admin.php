@@ -11,36 +11,38 @@ class Typetura_Admin
     $this->version = $version;
   }
 
-  public function typetura_cdn_package()
-  {
-    $typetura_package = $this->typetura_options["typetura_package"];
-    $typetura_api_key = $this->typetura_options["typetura_api_key"];
-    $typetura_base_size = $this->typetura_options["typetura_base_size"];
-    $typetura_scale = $this->typetura_options["typetura_scale"];
-    $typetura_disabled_auto_typesetting =
-      $this->typetura_options["typetura_disabled_auto_typesetting"];
-    $custom_js_link = plugin_dir_url(__FILE__) . "js/typetura-admin.js";
-
-    if (!empty($typetura_package) && !empty($typetura_api_key)) {
-      $js_link = "https://cdn.typetura.com/typetura.js?apiKey=$typetura_api_key";
-      $css_link_admin = "https://cdn.typetura.com/$typetura_package/typetura-admin.css?apiKey=$typetura_api_key";
-
-      if (!$typetura_disabled_auto_typesetting) {
-        wp_enqueue_script("typetura_js_custom", $custom_js_link);
-      }
-      wp_enqueue_style($this->plugin_name, $css_link_admin);
-      wp_enqueue_script($this->plugin_name, $js_link);
-
-      if ($typetura_base_size || $typetura_scale) { ?>
-			 <style type="text/css">
-				 :root {
-					 --tt-base: <?php echo $typetura_base_size; ?>;
-					 --tt-scale: <?php echo $typetura_scale; ?>;
-				 }
-			 </style>
-		 <?php }
-    }
-  }
+  /*
+   *   public function typetura_cdn_package()
+   *   {
+   *     $typetura_package = $this->typetura_options["typetura_package"];
+   *     $typetura_api_key = $this->typetura_options["typetura_api_key"];
+   *     $typetura_base_size = $this->typetura_options["typetura_base_size"];
+   *     $typetura_scale = $this->typetura_options["typetura_scale"];
+   *     $typetura_disabled_auto_typesetting =
+   *       $this->typetura_options["typetura_disabled_auto_typesetting"];
+   *     $custom_js_link = plugin_dir_url(__FILE__) . "js/typetura-admin.js";
+   *
+   *     if (!empty($typetura_package) && !empty($typetura_api_key)) {
+   *       $js_link = "https://cdn.typetura.com/typetura.js?apiKey=$typetura_api_key";
+   *       $css_link_admin = "https://cdn.typetura.com/$typetura_package/typetura-admin.css?apiKey=$typetura_api_key";
+   *
+   *       if (!$typetura_disabled_auto_typesetting) {
+   *         wp_enqueue_script("typetura_js_custom", $custom_js_link);
+   *       }
+   *       wp_enqueue_style($this->plugin_name, $css_link_admin);
+   *       wp_enqueue_script($this->plugin_name, $js_link);
+   *
+   *       if ($typetura_base_size || $typetura_scale) { ?>
+   * 			 <style type="text/css">
+   * 				 :root {
+   * 					 --tt-base: <?php echo $typetura_base_size; ?>;
+   * 					 --tt-scale: <?php echo $typetura_scale; ?>;
+   * 				 }
+   * 			 </style>
+   * 		 <?php }
+   *     }
+   *   }
+   */
 
   public function add_plugin_admin_menu()
   {
@@ -61,12 +63,6 @@ class Typetura_Admin
     );
   }
 
-  /**
-   * Add settings action link to the plugins page.
-   *
-   * @since    1.0.4
-   */
-
   public function add_action_links($links)
   {
     /*
@@ -81,12 +77,6 @@ class Typetura_Admin
     ];
     return array_merge($settings_link, $links);
   }
-
-  /**
-   * Render the settings page for this plugin.
-   *
-   * @since    1.0.4
-   */
 
   public function display_plugin_setup_page()
   {

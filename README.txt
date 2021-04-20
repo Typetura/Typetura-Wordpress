@@ -77,6 +77,9 @@ Reach out to us at [support@typetura.com](mailto:support@typetura.com) with a li
 
 == Changelog ==
 
+= 1.0.5 =
+* Added WYSIWYG typography editor and refine where packages pull from
+
 = 1.0.4 =
 * Added scale factor
 

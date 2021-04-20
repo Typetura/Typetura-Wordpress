@@ -5,7 +5,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link       https://typetura.com
- * @since      1.0.4
+ * @since      1.0.5
  *
  * @package    Typetura
  * @subpackage Typetura/admin/partials

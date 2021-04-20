@@ -9,14 +9,14 @@
  * that starts the plugin.
  *
  * @link              https://typetura.com
- * @since             1.0.4
+ * @since             1.0.5
  * @package           Typetura
  *
  * @wordpress-plugin
  * Plugin Name:       Typetura
  * Plugin URI:        typetura.com/
  * Description:       We typeset your website! Typography that works on your website regardless of layout or device.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Typetura
  * Author URI:        https://typetura.com
  * License:           GPL-2.0+
@@ -26,57 +26,46 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (!defined("WPINC")) {
+  die();
 }
 
-/**
- * Currently plugin version.
- * Start at version 1.0.4 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
- */
-define( 'TYPETURA_VERSION', '1.0.4' );
+define("TYPETURA_VERSION", "1.0.5");
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-typetura-activator.php
  */
-function activate_typetura() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-typetura-activator.php';
-	Typetura_Activator::activate();
+function activate_typetura()
+{
+  require_once plugin_dir_path(__FILE__) .
+    "includes/class-typetura-activator.php";
+  Typetura_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-typetura-deactivator.php
  */
-function deactivate_typetura() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-typetura-deactivator.php';
-	Typetura_Deactivator::deactivate();
+function deactivate_typetura()
+{
+  require_once plugin_dir_path(__FILE__) .
+    "includes/class-typetura-deactivator.php";
+  Typetura_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_typetura' );
-register_deactivation_hook( __FILE__, 'deactivate_typetura' );
+register_activation_hook(__FILE__, "activate_typetura");
+register_deactivation_hook(__FILE__, "deactivate_typetura");
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-typetura.php';
+require plugin_dir_path(__FILE__) . "includes/class-typetura.php";
 
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.4
- */
-function run_typetura() {
-
-	$plugin = new Typetura();
-	$plugin->run();
-
+function run_typetura()
+{
+  $plugin = new Typetura();
+  $plugin->run();
 }
 run_typetura();
